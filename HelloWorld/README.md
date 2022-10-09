@@ -1,6 +1,6 @@
 # 关于本项目
-[![Language](https://img.shields.io/badge/Language-Java_8_121-007396?color=orange&logo=java)](https://github.com/liushuijinger/spring-boot-book)
-[![Framework](https://img.shields.io/badge/Framework-Spring_Boot_2.7.4-6DB33F?logo=spring)](https://github.com/liushuijinger/spring-boot-book)
+[![Language](https://img.shields.io/badge/Language-Java_8_121-007396?color=orange&logo=java)](https://github.com/4575252/SpringBootBook)
+[![Framework](https://img.shields.io/badge/Framework-Spring_Boot_2.7.4-6DB33F?logo=spring)](https://github.com/4575252/SpringBootBook)
 
 主要是采用SpringBoot技术实现helloworld，这是java惯例，不能免俗。
 
