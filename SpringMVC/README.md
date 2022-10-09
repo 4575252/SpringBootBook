@@ -1,8 +1,8 @@
 # 关于本项目
 [![Language](https://img.shields.io/badge/Language-Java_8_121-007396?color=orange&logo=java)](https://github.com/4575252/SpringBootBook)
 [![Framework](https://img.shields.io/badge/Framework-Spring_Boot_2.7.4-6DB33F?logo=spring)](https://github.com/4575252/SpringBootBook)
-[![Lombok](https://img.shields.io/badge/Lombok-Spring_Boot_1.18.20-6DB33F?logo=lombok)](https://github.com/4575252/SpringBootBook)
-[![Swagger2](https://img.shields.io/badge/Swagger2-Knife4j_3.0.2-6DB33F?logo=swagger)](https://github.com/4575252/SpringBootBook)
+[![Lombok](https://img.shields.io/badge/Lombok-Spring_Boot_1.18.20-pink?logo=lombok)](https://github.com/4575252/SpringBootBook)
+[![Swagger2](https://img.shields.io/badge/Swagger2-Knife4j_3.0.2-blue?logo=swagger)](https://github.com/4575252/SpringBootBook)
 
 HelloWorld是很简单使用，但正式商用，至少应该集成这些插件，简化代码、提高效率：
 - lombok，自动实现log、get、set、构造、toString、equals、hashCode方法
