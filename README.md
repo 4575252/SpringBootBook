@@ -1,5 +1,5 @@
 # 关于本项目
-资料来源于【SpringBoot趣味实战课--刘水镜】
+资料来源于【[SpringBoot趣味实战课--刘水镜](https://github.com/liushuijinger/spring-boot-book)】
 
 本项目有几点创新：
 - 采用IDEA的统一项目管理，Project+多个model的方式

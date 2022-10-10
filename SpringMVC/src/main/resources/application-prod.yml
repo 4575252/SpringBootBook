@@ -1,0 +1,5 @@
+server:
+  port: 8082
+knife4j:
+  enable: true  #开启增强配置
+  production: true #开启生产环境屏蔽

@@ -6,7 +6,10 @@
 
 HelloWorld是很简单使用，但正式商用，至少应该集成这些插件，简化代码、提高效率：
 - lombok，自动实现log、get、set、构造、toString、equals、hashCode方法
-- knif4j，swagger2的增强框架，增加了接口测试功能
+- knife4j，swagger2的增强框架，增加了接口测试功能
+- Knife4j及httpClient针对SpringBoot的后端服务做请求测试
+- SpringBoot配置文件切换实验
+- Swagger根据配置文件实现密码管理和生产关闭的操作！
 
 ## lombok集成
 操作过程
@@ -38,6 +41,10 @@ public class HelloController {
 ## IDEA使用技巧
 - 用一个项目存放多个工程，统一维护管理，就是本项目用到的技术啦
 - 调整字体、皮肤、显示行号、方法分隔符、自定义工具栏、rainbow括号插件
+
+
+## Knife4j集成
+
 
 ```xml
 <dependency>
@@ -80,6 +87,18 @@ public class WebMvcConfig extends WebMvcConfigurationSupport  {
                 .termsOfServiceUrl("http://localhost:8080/")
                 .contact(new Contact("eric","b","4575252@gmail.com"))
                 .build();
+    }
+
+}
+
+//入口程序也要开启knife4j和swagger
+@SpringBootApplication
+@EnableSwagger2
+@EnableKnife4j
+public class SpringMvcApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SpringMvcApplication.class, args);
     }
 
 }
@@ -130,6 +149,27 @@ public class HelloController {
 swagger的测试可以访问, http://localhost:8081/doc.html
 ![](http://image.iyyxx.com/i/2022/10/09/6342706663c11.png)
 
+
+>在本次多model集成项目中，开启swagger出现maven test找到控制器的错误，屡试不过。。。，只能手工指定，解法如下
+```java
+@SpringBootTest(classes = {SpringMvcApplication.class})
+class SpringMvcApplicationTests {
+    //……
+}
+```
+
+>swagger本身不具有认证和权限控制，一般采用security进行basic密码验证，好在knife4j有方案，具体如下，可考虑做多配置切换
+```yaml
+knife4j:
+  enable: true  #开启增强配置
+  production: false #测试环境允许访问
+  basic:
+    enable: true # 开启Swagger的Basic认证功能,默认是false
+    username: test
+    password: 123
+```
+
+
 ## IDEA HttpClient 测试接口
 HttpClient是IDEA默认集成的插件，如果没有可以手工下载安装。
 使用的话在controller上点击相应的方法左侧进行测试！语法可以参考顶部的提示。
@@ -162,3 +202,28 @@ Content-Type: application/json
 <> 2022-10-09T145215.200.json
 <> 2022-10-09T144711.400.json
 ```
+
+## SpringBoot配置文件切换
+SpringBoot配置文件的加载顺序如下:
+- 1、config/application.properties（项目根目录中config目录下）
+- 2、config/application.yml
+- 3、application.properties（项目根目录下）
+- 4、application.yml
+- 5、resources/config/application.properties（项目resources目录中config目录下）
+- 6、resources/config/application.yml
+- 7、resources/application.properties（项目的resources目录下）
+- 8、resources/application.yml
+
+总的来说prop大于yml,不过还是推荐使用yml！
+
+另外多个配置文件的命名方式application-[XXX].yml或properties
+
+IDEA中切换配置可使用 `--spring.profiles.active=xxx`语法，如下
+![](http://image.iyyxx.com/i/2022/10/09/634285a7e122e.png)
+
+生产环境运行SpringBoot，maven打包所有配置文件，运行时切换配置用这个：
+```shell
+java -jar XXX.jar --spring.profiles.active=dev
+```
+
+

@@ -12,7 +12,7 @@
     <artifactId>SpringMVC</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>SpringMVC</name>
-    <description>04-SpringMVC</description>
+    <description>SpringMVC</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>

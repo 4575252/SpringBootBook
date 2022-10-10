@@ -1,0 +1,9 @@
+server:
+  port: 8081
+knife4j:
+  enable: true  #开启增强配置
+  production: false #测试环境允许访问
+  basic:
+    enable: true # 开启Swagger的Basic认证功能,默认是false
+    username: test
+    password: 123
