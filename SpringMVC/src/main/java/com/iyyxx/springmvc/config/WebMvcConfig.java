@@ -1,7 +1,11 @@
 package com.iyyxx.springmvc.config;
 
+import com.iyyxx.springmvc.handler.LogInterceptor;
+import com.iyyxx.springmvc.handler.TimeInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -20,6 +24,18 @@ import springfox.documentation.spring.web.plugins.Docket;
  **/
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport  {
+    @Autowired
+    private LogInterceptor logInterceptor;
+    @Autowired
+    private TimeInterceptor timeInterceptor;
+
+
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        super.addInterceptors(registry);
+        registry.addInterceptor(timeInterceptor);
+//        registry.addInterceptor(logInterceptor);
+    }
 
     /*** 设置静态资源映射
      * @param registry

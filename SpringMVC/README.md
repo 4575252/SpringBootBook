@@ -7,6 +7,7 @@
 HelloWorld是很简单使用，但正式商用，至少应该集成这些插件，简化代码、提高效率：
 - lombok，自动实现log、get、set、构造、toString、equals、hashCode方法
 - knife4j，swagger2的增强框架，增加了接口测试功能
+- SpringMVC三种常用的参数请求注解
 - Knife4j及httpClient针对SpringBoot的后端服务做请求测试
 - SpringBoot配置文件切换实验
 - Swagger根据配置文件实现密码管理和生产关闭的操作！
@@ -43,7 +44,7 @@ public class HelloController {
 - 调整字体、皮肤、显示行号、方法分隔符、自定义工具栏、rainbow括号插件
 
 
-## Knife4j集成
+## Knife4j集成、SpringMVC三种主要接收参数的方式
 
 
 ```xml
@@ -227,3 +228,48 @@ java -jar XXX.jar --spring.profiles.active=dev
 ```
 
 
+## 拦截器
+> 相比基于servlet的过滤器和监听器，拦截器是Spring AOP的一种展现方法，当然SpringBoot有单独的AOP方法，更强大也更复杂！
+> 关于过滤器有三种使用方法，[瑞吉项目](https://github.com/4575252/SpringBoot4Ruiji/blob/master/src/main/java/com/iyyxx/springboot4ruiji/filter/LoginCheckFilter.java)使用第二种，有路径无顺序的
+> 更多资料参看这里：https://segmentfault.com/a/1190000021823564
+
+这里演示，SpringBoot中如何使用拦截器，相比过滤器更面向对象，可直接操作bean！
+- 步骤1：创建拦截器
+- 步骤2：将拦截器注册到webConfig中
+```java
+@Slf4j
+@Component
+public class LogInterceptor implements HandlerInterceptor {
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.info("preHandle");
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        log.info("postHandle");
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        log.info("afterCompletion");
+    }
+}
+
+@Configuration
+public class WebMvcConfig extends WebMvcConfigurationSupport {
+    @Autowired
+    private LogInterceptor logInterceptor;
+    @Autowired
+    private TimeInterceptor timeInterceptor;
+
+
+    @Override
+    protected void addInterceptors(InterceptorRegistry registry) {
+        super.addInterceptors(registry);
+        registry.addInterceptor(timeInterceptor);
+        registry.addInterceptor(logInterceptor);
+    }
+}
+```
