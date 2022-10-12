@@ -39,9 +39,9 @@ spring:
 logging:
   level:
     root: info
-    # ?? SQL
+    # 输出 SQL
     druid.sql.Statement: debug
-    # ??????
+    # 输出查询结果
     druid.sql.ResultSet: debug
     com.iyyxx.springmybatisplus.mbp.mapper: debug
 
