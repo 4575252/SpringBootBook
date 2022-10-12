@@ -10,6 +10,7 @@
 - 累积的基础框架，lombok、knife4j、springboot的web starter。
 - 集成SpringDataRedis，并摒弃自带的lettuce客户端，继续使用jedis！
 - 序列化器采用阿里的fastjson，并对键值对的乱码做了修正！
+- 补充了全局的异常处理
 
 
 ## 关于分布式锁
@@ -19,3 +20,33 @@
 
 ![](http://image.iyyxx.com/i/2022/10/12/63467d5ad5996.png)
 
+
+## 全局异常处理
+这边用到了@RestControllerAdvice 注解，对全局异常及其子类分别捕获，后续可以自由扩展非常的奈斯，特别是对返回类型和错误编号、信息做了枚举。
+
+```java
+@Slf4j
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(Exception.class)
+    public Result<Boolean> globalException(Exception e) {
+        Result<Boolean> result = new Result<>();
+        result.setCode(MessageEnum.ERROR.getCode());
+        result.setMessage(e.getMessage() == null ? MessageEnum.ERROR.getMessage() : e.getMessage());
+        log.error(e.getMessage(),e);
+        return result;
+    }
+
+    //这里可以根据不同的异常类型进行捕获，然后返回接口错误信息，具体的代码还可以用枚举进行罗列！
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Result<Boolean> apiException(IllegalArgumentException e) {
+        Result<Boolean> result = new Result<>();
+        result.setCode(MessageEnum.ERROR.getCode());
+        result.setMessage("非法参数 "+e.getMessage());
+        log.error(e.getMessage(),e);
+        return result;
+    }
+
+}
+```
