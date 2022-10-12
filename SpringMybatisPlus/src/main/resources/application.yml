@@ -1,5 +1,4 @@
 spring:
-  # ????
   datasource:
     url: jdbc:mysql://192.168.20.145:3306/mbp?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -47,14 +46,14 @@ logging:
     com.iyyxx.springmybatisplus.mbp.mapper: debug
 
 knife4j:
-  enable: true  #??????
-  production: false #????????
+  enable: true  #开启增强配置
+  production: false #测试环境允许访问
   basic:
-    enable: true # ??Swagger?Basic????,???false
+    enable: true # 开启Swagger的Basic认证功能,默认是false
     username: test
     password: 123
 
-# WEB ??
+# WEB 配置
 server:
   port: 8080
   servlet:
@@ -62,7 +61,7 @@ server:
     session:
       timeout: 60
 
-# ??slq????
+# 配置slq打印日志
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
