@@ -1,4 +1,5 @@
 # 关于本项目
+> 深度学习的主要步骤是：看、用、想、写，这里通过看书、视频、查资料进行实践，提交到github，后续还需要思考，然后输出高质量材料到博客上
 资料来源于【[SpringBoot趣味实战课--刘水镜](https://github.com/liushuijinger/spring-boot-book)】
 
 本项目有几点创新：
